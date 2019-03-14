@@ -5,21 +5,23 @@
  */
 
 var config = require(__dirname + '/config.js');
-var twitterbot = require(__dirname + '/twitterbot.js');
+//var twitterbot = require(__dirname + '/twitterbot.js');
 var gitbot = require(__dirname + '/gitbot.js');
 var pomodoro = require(__dirname + '/pomodoro.js');
 var ansiArt = require('ansi-art').default;
 
 var path = require('path');
 var notifier = require('node-notifier');
-var spawn = require('child_process').spawn;
-var shellescape = require('shell-escape');
+//var spawn = require('child_process').spawn;
+//var shellescape = require('shell-escape');
 var blessed = require('blessed');
 var contrib = require('blessed-contrib');
 var chalk = require('chalk');
 var bunnySay = require('sign-bunny');
 var yosay = require('yosay');
 var weather = require('weather-js');
+
+var rqmbot = require(__dirname + '/rqmbot.js');
 
 var inPomodoroMode = false;
 
@@ -79,7 +81,8 @@ screen.key(['p', 'C-p'], function(ch, key) {
     if (inPomodoroMode) {
         pomodoroObject.stop();
         inPomodoroMode = false;
-        doTheTweets();
+        //doTheTweets();
+        doTheRQM();
         parrotBox.removeLabel('');
     } else {
         // ! emoji not supported on windows
@@ -102,10 +105,10 @@ var weekBox = grid.set(6, 0, 6, 8, blessed.box, makeScrollBox(' This Week '));
 //var weekBox = grid.set(6, 0, 6, 6, blessed.box, makeScrollBox(' 📝  Week '));
 var commits = grid.set(0, 6, 6, 2, contrib.bar, makeGraphBox(' Commits '));
 var parrotBox = grid.set(6, 8, 6, 4, blessed.box, makeScrollBox(''));
-
-var tweetBoxes = {};
-tweetBoxes[config.twitter[1]] = grid.set(2, 8, 2, 4, blessed.box, makeBox(' Twitter 1 '));
-tweetBoxes[config.twitter[2]] = grid.set(4, 8, 2, 4, blessed.box, makeBox(' Twitter 2 '));
+var rqmBox = grid.set(2, 8, 4, 4, blessed.box, makeScrollBox(' RQM '));
+//var tweetBoxes = {};
+//tweetBoxes[config.twitter[1]] = grid.set(2, 8, 2, 4, blessed.box, makeBox(' Twitter 1 '));
+//tweetBoxes[config.twitter[2]] = grid.set(4, 8, 2, 4, blessed.box, makeBox(' Twitter 2 '));
 // ! emoji not supported on windows
 //tweetBoxes[config.twitter[1]] = grid.set(2, 8, 2, 4, blessed.box, makeBox(' 💖 '));
 //tweetBoxes[config.twitter[2]] = grid.set(4, 8, 2, 4, blessed.box, makeBox(' 💬 '));
@@ -115,7 +118,8 @@ setInterval(tick, 1000 * 60 * config.updateInterval);
 
 function tick() {
     doTheWeather();
-    doTheTweets();
+    //doTheTweets();
+    doTheRQM();
     doTheCodes();
 }
 
@@ -142,6 +146,12 @@ function doTheWeather() {
     });
 }
 
+function doTheRQM(){
+    //rqmBox.content = randomQuote();
+    screen.render();
+}
+
+/*
 function doTheTweets() {
     for (var which in config.twitter) {
         // Gigantor hack: first twitter account gets spoken by the party parrot.
@@ -170,6 +180,7 @@ function doTheTweets() {
         }
     }
 }
+*/
 
 function doTheCodes() {
     var todayCommits = 0;
