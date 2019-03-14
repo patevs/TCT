@@ -21,7 +21,7 @@ var config = {
     apiKeys: (process.env.TTC_APIKEYS || 'true') === 'true',
 
     // Directories in which to run git-standup on for a list of your recent commits.
-    repos: (process.env.TTC_REPOS || '~/Code').split(',').map(p => expandHomeDir(p)),
+    repos: (process.env.TTC_REPOS || '~/Desktop/git').split(',').map(p => expandHomeDir(p)),
 
     // Directory-depth to look for git repositories.
     depth: (process.env.TTC_REPOS_DEPTH || 1),

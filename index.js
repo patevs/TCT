@@ -6,7 +6,7 @@
 
 var config = require(__dirname + '/config.js');
 var twitterbot = require(__dirname + '/twitterbot.js');
-//var gitbot = require(__dirname + '/gitbot.js');
+var gitbot = require(__dirname + '/gitbot.js');
 var pomodoro = require(__dirname + '/pomodoro.js');
 var ansiArt = require('ansi-art').default;
 
@@ -188,7 +188,6 @@ function doTheCodes() {
         return (box && box.content) ? (box.content.match(commitRegex) || []).length : '0';
     }
 
-    /* // TODO: implement gitbot
     gitbot.findGitRepos(config.repos, config.depth-1, (err, allRepos) => {
         if (err) {
             return todayBox.content = err;
@@ -215,7 +214,6 @@ function doTheCodes() {
             screen.render();
         });
     });
-    */
 
 }
 
