@@ -24,8 +24,10 @@
     "chalk": "^2.4.2",
     "expand-home-dir": "^0.0.3",
     "node-notifier": "^5.4.0",
+    "scraperjs": "^1.2.0",
     "shell-escape": "^0.2.0",
     "sign-bunny": "^1.0.0",
+    "twit": "^2.2.11",
     "weather-js": "^2.0.0",
     "yosay": "^2.0.2"
   }
