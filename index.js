@@ -19,7 +19,7 @@ var contrib = require('blessed-contrib');
 var chalk = require('chalk');
 var bunnySay = require('sign-bunny');
 var yosay = require('yosay');
-//var weather = require('weather-js');
+var weather = require('weather-js');
 
 var inPomodoroMode = false;
 
@@ -93,7 +93,7 @@ screen.key(['p', 'C-p'], function(ch, key) {
 var grid = new contrib.grid({rows: 12, cols: 12, screen: screen});
 
 // grid.set(row, col, rowSpan, colSpan, obj, opts)
-var weatherBox = grid.set(0, 8, 2, 4, blessed.box, makeScrollBox(' Weather '));
+var weatherBox = grid.set(0, 8, 3, 4, blessed.box, makeScrollBox(' Weather '));
 var todayBox = grid.set(0, 0, 6, 6, blessed.box, makeScrollBox(' Last 24 hours '));
 var weekBox = grid.set(6, 0, 6, 6, blessed.box, makeScrollBox(' This Week '));
 // ! emoji not supported on windows
@@ -104,8 +104,8 @@ var commits = grid.set(0, 6, 6, 2, contrib.bar, makeGraphBox(' Commits '));
 var parrotBox = grid.set(6, 6, 6, 6, blessed.box, makeScrollBox(''));
 
 var tweetBoxes = {};
-tweetBoxes[config.twitter[1]] = grid.set(2, 8, 2, 4, blessed.box, makeBox(' Twitter 0 '));
-tweetBoxes[config.twitter[2]] = grid.set(4, 8, 2, 4, blessed.box, makeBox(' Twitter 1 '));
+tweetBoxes[config.twitter[1]] = grid.set(3, 8, 3, 4, blessed.box, makeBox(' Twitter '));
+//tweetBoxes[config.twitter[2]] = grid.set(4, 8, 2, 4, blessed.box, makeBox(' Twitter '));
 // ! emoji not supported on windows
 //tweetBoxes[config.twitter[1]] = grid.set(2, 8, 2, 4, blessed.box, makeBox(' 💖 '));
 //tweetBoxes[config.twitter[2]] = grid.set(4, 8, 2, 4, blessed.box, makeBox(' 💬 '));
@@ -114,12 +114,11 @@ tick();
 setInterval(tick, 1000 * 60 * config.updateInterval);
 
 function tick() {
-    //doTheWeather();
+    doTheWeather();
     //doTheTweets();
     doTheCodes();
 }
 
-/* // TODO: implement weather
 function doTheWeather() {
     weather.find({search: config.weather, degreeType: config.celsius ? 'C' : 'F'}, function(err, result) {
         if (result && result[0] && result[0].current) {
@@ -142,7 +141,6 @@ function doTheWeather() {
         }
     });
 }
-*/
 
 /* // TODO: implement tweetbot
 function doTheTweets() {

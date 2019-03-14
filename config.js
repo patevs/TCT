@@ -18,7 +18,8 @@ var config = {
 
     // Set this to false if you want to scrape twitter.com instead of using
     // API keys. The tweets may include RTs in this case :(
-    apiKeys: (process.env.TTC_APIKEYS || 'true') === 'true',
+    apiKeys: 'false',
+    //apiKeys: (process.env.TTC_APIKEYS || 'true') === 'true',
 
     // Directories in which to run git-standup on for a list of your recent commits.
     repos: (process.env.TTC_REPOS || '~/Code').split(',').map(p => expandHomeDir(p)),
@@ -28,7 +29,7 @@ var config = {
 
     // Where to check the weather for.
     // It's using weather.service.msn.com behind the curtains.
-    weather: process.env.TTC_WEATHER || 'San Francisco',
+    weather: process.env.TTC_WEATHER || 'Wellington',
 
     // Set to false if you're an imperial savage. <3
     celsius: (process.env.TTC_CELSIUS || 'true') === 'true',

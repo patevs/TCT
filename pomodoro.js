@@ -37,7 +37,7 @@ var pomodoro = function(options) {
         if (_runningDurationRemaining < 1) {
             _runningDurationRemaining = 0;
             _breakDurationRemaining = _breakDuration * 60;
-            _currentState = States.IN_BREAK
+            _currentState = States.IN_BREAK;
             options.onBreakStarts && options.onBreakStarts();
         } else {
             _runningDurationRemaining -= 1;
@@ -49,7 +49,7 @@ var pomodoro = function(options) {
         if (_breakDurationRemaining < 1) {
             _breakDurationRemaining = 0;
             _runningDurationRemaining = _runningDuration * 60;
-            _currentState = States.RUNNING
+            _currentState = States.RUNNING;
             options.onBreakEnds && options.onBreakEnds();
         } else {
             _breakDurationRemaining -= 1;
