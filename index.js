@@ -82,7 +82,9 @@ screen.key(['p', 'C-p'], function(ch, key) {
         doTheTweets();
         parrotBox.removeLabel('');
     } else {
-        parrotBox.setLabel(' 🍅 ');
+        // ! emoji not supported on windows
+        //parrotBox.setLabel(' 🍅 ');
+        parrotBox.setLabel('Parrot Box');
         inPomodoroMode = true;
         pomodoroHandlers.onTick();
     }
@@ -98,8 +100,11 @@ var commits = grid.set(0, 6, 6, 2, contrib.bar, makeGraphBox('Commits'));
 var parrotBox = grid.set(6, 6, 6, 6, blessed.box, makeScrollBox(''));
 
 var tweetBoxes = {};
-tweetBoxes[config.twitter[1]] = grid.set(2, 8, 2, 4, blessed.box, makeBox(' 💖 '));
-tweetBoxes[config.twitter[2]] = grid.set(4, 8, 2, 4, blessed.box, makeBox(' 💬 '));
+tweetBoxes[config.twitter[1]] = grid.set(2, 8, 2, 4, blessed.box, makeBox('Twitter Care'));
+tweetBoxes[config.twitter[2]] = grid.set(4, 8, 2, 4, blessed.box, makeBox('Twitter Quote'));
+// ! emoji not supported on windows
+//tweetBoxes[config.twitter[1]] = grid.set(2, 8, 2, 4, blessed.box, makeBox(' 💖 '));
+//tweetBoxes[config.twitter[2]] = grid.set(4, 8, 2, 4, blessed.box, makeBox(' 💬 '));
 
 tick();
 setInterval(tick, 1000 * 60 * config.updateInterval);
@@ -232,7 +237,7 @@ function makeScrollBox(label) {
     var options = makeBox(label);
     options.scrollable = true;
     options.scrollbar = { ch:' ' };
-    options.style.scrollbar = { bg: 'green', fg: 'white' }
+    options.style.scrollbar = { bg: 'green', fg: 'white' };
     options.keys = true;
     options.vi = true;
     options.alwaysScroll = true;
