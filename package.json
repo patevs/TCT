@@ -1,0 +1,19 @@
+{
+  "name": "term-dash",
+  "version": "0.4.2",
+  "description": "A dashboard for your terminal. Forked from: https://github.com/notwaldorf/tiny-care-terminal",
+  "author": "Patrick Evans (patevs)",
+  "license": "MIT",
+  "homepage": "https://github.com/patevs/term-dash#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patevs/term-dash.git"
+  },
+  "bugs": {
+    "url": "https://github.com/patevs/term-dash/issues"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
