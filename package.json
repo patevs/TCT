@@ -15,5 +15,17 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ansi-art": "^1.2.4",
+    "blessed": "^0.1.81",
+    "blessed-contrib": "^4.8.11",
+    "chalk": "^2.4.2",
+    "expand-home-dir": "^0.0.3",
+    "node-notifier": "^5.4.0",
+    "shell-escape": "^0.2.0",
+    "sign-bunny": "^1.0.0",
+    "weather-js": "^2.0.0",
+    "yosay": "^2.0.2"
   }
 }
