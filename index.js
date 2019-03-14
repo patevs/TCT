@@ -4,10 +4,10 @@
  *  index.js
  */
 
-//var config = require(__dirname + '/config.js');
+var config = require(__dirname + '/config.js');
 //var twitterbot = require(__dirname + '/twitterbot.js');
 //var gitbot = require(__dirname + '/gitbot.js');
-//var pomodoro = require(__dirname + '/pomodoro.js');
+var pomodoro = require(__dirname + '/pomodoro.js');
 var ansiArt = require('ansi-art').default;
 
 var path = require('path');
@@ -28,8 +28,7 @@ var screen = blessed.screen(
         fullUnicode: true, // emoji or bust
         smartCSR: true,
         autoPadding: true,
-        title: "Term-Dash Title"
-        //title: config.terminal_title
+        title: config.terminal_title
     });
 
 // Quit on Escape, q, or Control-C.
@@ -42,7 +41,6 @@ screen.key(['r', 'C-r'], function(ch, key) {
     tick();
 });
 
-/*
 screen.key(['s', 'C-s'], function(ch, key) {
     if (!inPomodoroMode) {
         return;
@@ -89,7 +87,6 @@ screen.key(['p', 'C-p'], function(ch, key) {
         pomodoroHandlers.onTick();
     }
 });
-*/
 
 var grid = new contrib.grid({rows: 12, cols: 12, screen: screen});
 
@@ -107,7 +104,7 @@ tweetBoxes[config.twitter[2]] = grid.set(4, 8, 2, 4, blessed.box, makeBox(' 💬
 */
 
 tick();
-//setInterval(tick, 1000 * 60 * config.updateInterval);
+setInterval(tick, 1000 * 60 * config.updateInterval);
 
 function tick() {
     //doTheWeather();
