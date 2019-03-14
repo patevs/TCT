@@ -13,6 +13,7 @@ var config = {
 
     // Use this to have a different animal say a message in the big box.
     // regex: if TTC_SAY_BOX is a filePath, return that path
+    //parrot | bunny | llama | cat | yeoman | mario | ironman | minions | panda`
     say: /(\w[~\/])/.test(process.env.TTC_SAY_BOX)
         ? process.env.TTC_SAY_BOX : (process.env.TTC_SAY_BOX || 'parrot').toLowerCase(),
 
