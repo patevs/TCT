@@ -18,8 +18,7 @@ var config = {
 
     // Set this to false if you want to scrape twitter.com instead of using
     // API keys. The tweets may include RTs in this case :(
-    apiKeys: 'false',
-    //apiKeys: (process.env.TTC_APIKEYS || 'true') === 'true',
+    apiKeys: (process.env.TTC_APIKEYS || 'true') === 'true',
 
     // Directories in which to run git-standup on for a list of your recent commits.
     repos: (process.env.TTC_REPOS || '~/Code').split(',').map(p => expandHomeDir(p)),
