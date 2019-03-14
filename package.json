@@ -18,6 +18,7 @@
     "blessed-contrib": "^4.8.11",
     "chalk": "^2.4.2",
     "expand-home-dir": "^0.0.3",
+    "forismatic-node": "^1.1.4",
     "git-user-name": "^2.0.0",
     "git-utils": "^5.4.0",
     "gitlog": "^3.1.2",

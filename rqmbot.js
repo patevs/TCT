@@ -1,53 +1,28 @@
 
-//var $ = require('jquery'),
-//XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
-
-//$.support.cors = true;
-//$.ajaxSettings.xhr = function() {
-//    return new XMLHttpRequest();
-//};
-
-/*
-$.ajax({
-        url: "https://api.forismatic.com/api/1.0/?",
-        dataType: "jsonp",
-        data: "method=getQuote&format=jsonp&lang=en&jsonp=?",
-        jsonpCallback: "_testcb",
-        cache: false,
-        timeout: 5000,
-        success: function(data) {
-            if(data.quoteText.length > 120){
-                randomQuote();
-            }
-            if(data.quoteAuthor.length > 0){
-                return data.quoteText + "\n\t - " + data.quoteAuthor + " -";
-            } else {
-                return data.quoteText + "<br/>&dash; Unknown &dash;</p>";
-            }   
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            alert('error ' + textStatus + " " + errorThrown);
-        }
-    });
+/**
+ *  rqmbot.js
+ * @param {*} color 
+ * @param {*} percent 
+ */
+var forismatic = require('forismatic-node')();
 
 function randomQuote(){
-    $.ajax({   
-        url: "https://api.forismatic.com/api/1.0/?",
-        dataType: "jsonp",
-        data: "method=getQuote&format=jsonp&lang=en&jsonp=?",
-        success: function( response ) {
-            if(response.quoteText.length > 120){
-                randomQuote();
-            }
-            if(response.quoteAuthor.length > 0){
-                return response.quoteText + "\n\t - " + response.quoteAuthor + " -";
+    forismatic.getQuote(function (error, quote) {
+        if (!error) {
+            console.log(quote);
+            if(quote.quoteAuthor.length > 0){
+                return quote.quoteText;
+                //return quote.quoteText + "\n\t - " + quote.quoteAuthor + " -";
             } else {
-                return response.quoteText + "<br/>&dash; Unknown &dash;</p>";
-            }      
+                return quote.quoteText;
+                //return quote.quoteText + "<br/>&dash; Unknown &dash;</p>";
+            }   
+        } else {
+            console.error(error);
         }
     });
 }
-*/
+
 
 // credit: https://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors/13532993#13532993
 function shadeColor(color, percent) {
@@ -65,3 +40,5 @@ function shadeColor(color, percent) {
     var BB = ((B.toString(16).length===1)?"0"+B.toString(16):B.toString(16));
     return "#"+RR+GG+BB;
 }
+
+module.exports.randomQuote = randomQuote;
