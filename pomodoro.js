@@ -35,30 +35,30 @@ var pomodoro = function(options) {
 
     var _handleTickOnRunning = function() {
         if (_runningDurationRemaining < 1) {
-        _runningDurationRemaining = 0;
-        _breakDurationRemaining = _breakDuration * 60;
-        _currentState = States.IN_BREAK;
-        options.onBreakStarts && options.onBreakStarts();
+            _runningDurationRemaining = 0;
+            _breakDurationRemaining = _breakDuration * 60;
+            _currentState = States.IN_BREAK
+            options.onBreakStarts && options.onBreakStarts();
         } else {
-        _runningDurationRemaining -= 1;
-        if (options.onTick) options.onTick();
+            _runningDurationRemaining -= 1;
+            if (options.onTick) options.onTick();
         }
     };
 
     var _handleTickOnBreak = function() {
         if (_breakDurationRemaining < 1) {
-        _breakDurationRemaining = 0;
-        _runningDurationRemaining = _runningDuration * 60;
-        _currentState = States.RUNNING;
-        options.onBreakEnds && options.onBreakEnds();
+            _breakDurationRemaining = 0;
+            _runningDurationRemaining = _runningDuration * 60;
+            _currentState = States.RUNNING
+            options.onBreakEnds && options.onBreakEnds();
         } else {
-        _breakDurationRemaining -= 1;
-        if (options.onTick) options.onTick();
+            _breakDurationRemaining -= 1;
+            if (options.onTick) options.onTick();
         }
     };
 
     var _handleTickOnStopped = function() {
-        clearInterval(_setIntervalId)
+        clearInterval(_setIntervalId);
         _runningDurationRemaining = 0;
         _breakDurationRemaining = 0;
         _setIntervalId = null;
