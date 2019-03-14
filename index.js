@@ -5,7 +5,7 @@
  */
 
 var config = require(__dirname + '/config.js');
-//var twitterbot = require(__dirname + '/twitterbot.js');
+var twitterbot = require(__dirname + '/twitterbot.js');
 var gitbot = require(__dirname + '/gitbot.js');
 var pomodoro = require(__dirname + '/pomodoro.js');
 var ansiArt = require('ansi-art').default;
@@ -21,10 +21,19 @@ var bunnySay = require('sign-bunny');
 var yosay = require('yosay');
 var weather = require('weather-js');
 
-//var rqmbot = require(__dirname + '/rqmbot.js');
-var forismatic = require('forismatic-node');
+var forismatic = require('forismatic-node')();
 
 var inPomodoroMode = false;
+
+/*
+forismatic.getQuote(function (error, quote) {
+    if (!error) {
+        console.log(quote);
+    } else {
+        console.error(error);
+    }
+});
+*/
 
 var screen = blessed.screen(
     {
@@ -99,17 +108,16 @@ var grid = new contrib.grid({rows: 12, cols: 12, screen: screen});
 // grid.set(row, col, rowSpan, colSpan, obj, opts)
 var weatherBox = grid.set(0, 8, 2, 4, blessed.box, makeScrollBox(' Weather '));
 var todayBox = grid.set(0, 0, 6, 6, blessed.box, makeScrollBox(' Last 24 hours '));
-var weekBox = grid.set(6, 0, 6, 8, blessed.box, makeScrollBox(' This Week '));
+var weekBox = grid.set(6, 0, 6, 7, blessed.box, makeScrollBox(' This Week '));
 // ! emoji not supported on windows
 //var weatherBox = grid.set(0, 8, 2, 4, blessed.box, makeScrollBox(' 🌤 '));
 //var todayBox = grid.set(0, 0, 6, 6, blessed.box, makeScrollBox(' 📝  Last 24 hours '));
 //var weekBox = grid.set(6, 0, 6, 6, blessed.box, makeScrollBox(' 📝  Week '));
 var commits = grid.set(0, 6, 6, 2, contrib.bar, makeGraphBox(' Commits '));
-var parrotBox = grid.set(6, 8, 6, 4, blessed.box, makeScrollBox(''));
-var rqmBox = grid.set(2, 8, 4, 4, blessed.box, makeScrollBox(' RQM '));
-//var tweetBoxes = {};
-//tweetBoxes[config.twitter[1]] = grid.set(2, 8, 2, 4, blessed.box, makeBox(' Twitter 1 '));
-//tweetBoxes[config.twitter[2]] = grid.set(4, 8, 2, 4, blessed.box, makeBox(' Twitter 2 '));
+var parrotBox = grid.set(6, 7, 6, 5, blessed.box, makeScrollBox(''));
+var tweetBoxes = {};
+tweetBoxes[config.twitter[1]] = grid.set(2, 8, 2, 4, blessed.box, makeBox(' Twitter 1 '));
+tweetBoxes[config.twitter[2]] = grid.set(4, 8, 2, 4, blessed.box, makeBox(' Twitter 2 '));
 // ! emoji not supported on windows
 //tweetBoxes[config.twitter[1]] = grid.set(2, 8, 2, 4, blessed.box, makeBox(' 💖 '));
 //tweetBoxes[config.twitter[2]] = grid.set(4, 8, 2, 4, blessed.box, makeBox(' 💬 '));
@@ -119,7 +127,7 @@ setInterval(tick, 1000 * 60 * config.updateInterval);
 
 function tick() {
     doTheWeather();
-    //doTheTweets();
+    doTheTweets();
     doTheRQM();
     doTheCodes();
 }
@@ -147,41 +155,46 @@ function doTheWeather() {
     });
 }
 
-
 function doTheRQM(){
-    //var quote = rqmbot.randomQuote();
-    for (var which in config.twitter) {
-        // Gigantor hack: first twitter account gets spoken by the party parrot.
-        if (which == 0) {
-            /*
-            if (inPomodoroMode) {
-                return;
+    forismatic.getQuote(function (error, quote) {
+        if (!error) {
+            //console.log(quote);
+            //tweetBoxes[config.twitter[1]].content =
+            //tweetBoxes[config.twitter[2]].content =
+            if(quote.quoteAuthor.length > 0){
+                parrotBox.content = getAnsiArt(quote.quoteText + "\n - " + quote.quoteAuthor);
+            } else {
+                parrotBox.content = getAnsiArt(quote.quoteText + "\n - Unknown");
             }
-            */
-            twitterbot.getTweet(config.twitter[which]).then(function(tweet) {
-                parrotBox.content = getAnsiArt(tweet.text);
-                screen.render();
-            },function(error) {
-                // Just in case we don't have tweets.
-                parrotBox.content = getAnsiArt('Hi! You\'re doing great!!!');
-                screen.render();
-            });
+            screen.render();
         } else {
-            twitterbot.getTweet(config.twitter[which]).then(function(tweet) {
-                tweetBoxes[tweet.bot.toLowerCase()].content = tweet.text;
-                screen.render();
-            },function(error) {
-                tweetBoxes[config.twitter[1]].content =
-                tweetBoxes[config.twitter[2]].content =
-                'Can\'t read Twitter without some API keys. Maybe try the scraping version instead?';
-                //'Can\'t read Twitter without some API keys  🐰. Maybe try the scraping version instead?';
-            });
+            //console.error(error);
+            //parrotBox.content = getAnsiArt('Hi! You\'re doing great!!!');
+            parrotBox.content = error;
+            screen.render();
         }
-    }
+    });
 }
 
-
+// credit: https://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors/13532993#13532993
 /*
+function shadeColor(color, percent) {
+    var R = parseInt(color.substring(1,3),16);
+    var G = parseInt(color.substring(3,5),16);
+    var B = parseInt(color.substring(5,7),16);
+    R = parseInt(R * (100 + percent) / 100);
+    G = parseInt(G * (100 + percent) / 100);
+    B = parseInt(B * (100 + percent) / 100);
+    R = (R<255)?R:255;  
+    G = (G<255)?G:255;  
+    B = (B<255)?B:255;  
+    var RR = ((R.toString(16).length===1)?"0"+R.toString(16):R.toString(16));
+    var GG = ((G.toString(16).length===1)?"0"+G.toString(16):G.toString(16));
+    var BB = ((B.toString(16).length===1)?"0"+B.toString(16):B.toString(16));
+    return "#"+RR+GG+BB;
+}
+*/
+
 function doTheTweets() {
     for (var which in config.twitter) {
         // Gigantor hack: first twitter account gets spoken by the party parrot.
@@ -210,7 +223,6 @@ function doTheTweets() {
         }
     }
 }
-*/
 
 function doTheCodes() {
     var todayCommits = 0;

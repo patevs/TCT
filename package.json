@@ -25,6 +25,7 @@
     "is-git": "^1.0.0",
     "node-notifier": "^5.4.0",
     "resolve-dir": "^1.0.1",
+    "scraperjs": "^1.2.0",
     "sign-bunny": "^1.0.0",
     "subdirs": "^1.0.1",
     "twit": "^2.2.11",
