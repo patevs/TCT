@@ -97,11 +97,9 @@ var weekBox = grid.set(6, 0, 6, 6, blessed.box, makeScrollBox(' 📝  Week '));
 var commits = grid.set(0, 6, 6, 2, contrib.bar, makeGraphBox('Commits'));
 var parrotBox = grid.set(6, 6, 6, 6, blessed.box, makeScrollBox(''));
 
-/*
-var tweetBoxes = {}
+var tweetBoxes = {};
 tweetBoxes[config.twitter[1]] = grid.set(2, 8, 2, 4, blessed.box, makeBox(' 💖 '));
 tweetBoxes[config.twitter[2]] = grid.set(4, 8, 2, 4, blessed.box, makeBox(' 💬 '));
-*/
 
 tick();
 setInterval(tick, 1000 * 60 * config.updateInterval);
@@ -109,10 +107,10 @@ setInterval(tick, 1000 * 60 * config.updateInterval);
 function tick() {
     //doTheWeather();
     //doTheTweets();
-    //doTheCodes();
+    doTheCodes();
 }
 
-/*
+/* // TODO: implement weather
 function doTheWeather() {
     weather.find({search: config.weather, degreeType: config.celsius ? 'C' : 'F'}, function(err, result) {
         if (result && result[0] && result[0].current) {
@@ -137,7 +135,7 @@ function doTheWeather() {
 }
 */
 
-/*
+/* // TODO: implement tweetbot
 function doTheTweets() {
     for (var which in config.twitter) {
         // Gigantor hack: first twitter account gets spoken by the party parrot.
@@ -167,7 +165,6 @@ function doTheTweets() {
 }
 */
 
-/*
 function doTheCodes() {
     var todayCommits = 0;
     var weekCommits = 0;
@@ -185,6 +182,7 @@ function doTheCodes() {
         return (box && box.content) ? (box.content.match(commitRegex) || []).length : '0';
     }
 
+    /* // TODO: implement gitbot
     gitbot.findGitRepos(config.repos, config.depth-1, (err, allRepos) => {
         if (err) {
             return todayBox.content = err;
@@ -211,8 +209,9 @@ function doTheCodes() {
             screen.render();
         });
     });
+    */
+
 }
-*/
 
 function makeBox(label) {
     return {
