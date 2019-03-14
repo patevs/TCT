@@ -1,7 +1,7 @@
 {
   "name": "term-dash",
-  "version": "1.4.2",
-  "description": "A dashboard for your terminal. Forked from: https://github.com/notwaldorf/tiny-care-terminal",
+  "version": "1.5.7",
+  "description": "TCT tiny-care-terminal : A dashboard for your terminal. Forked from: https://github.com/notwaldorf/tiny-care-terminal",
   "author": "Patrick Evans (patevs)",
   "license": "MIT",
   "main": "index.js",
