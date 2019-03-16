@@ -131,7 +131,6 @@ setInterval(tick, 1000 * 60 * config.updateInterval);
 
 function tick() {
     doTheWeather();
-    doTheTweets();
     doTheRQM();
     doTheCodes();
 }
@@ -156,6 +155,7 @@ function doTheWeather() {
         } else {
             weatherBox.content = 'Having trouble fetching the weather for you :(';
         }
+        screen.render();
     });
 }
 
@@ -194,37 +194,6 @@ function shadeColor(color, percent) {
     var GG = ((G.toString(16).length===1)?"0"+G.toString(16):G.toString(16));
     var BB = ((B.toString(16).length===1)?"0"+B.toString(16):B.toString(16));
     return "#"+RR+GG+BB;
-}
-*/
-
-/*
-function doTheTweets() {
-    for (var which in config.twitter) {
-        // Gigantor hack: first twitter account gets spoken by the party parrot.
-        if (which == 0) {
-            if (inPomodoroMode) {
-                return;
-            }
-            twitterbot.getTweet(config.twitter[which]).then(function(tweet) {
-                parrotBox.content = getAnsiArt(tweet.text);
-                screen.render();
-            },function(error) {
-                // Just in case we don't have tweets.
-                parrotBox.content = getAnsiArt('Hi! You\'re doing great!!!');
-                screen.render();
-            });
-        } else {
-            twitterbot.getTweet(config.twitter[which]).then(function(tweet) {
-                tweetBoxes[tweet.bot.toLowerCase()].content = tweet.text;
-                screen.render();
-            },function(error) {
-                tweetBoxes[config.twitter[1]].content =
-                tweetBoxes[config.twitter[2]].content =
-                'Can\'t read Twitter without some API keys. Maybe try the scraping version instead?';
-                //'Can\'t read Twitter without some API keys  🐰. Maybe try the scraping version instead?';
-            });
-        }
-    }
 }
 */
 

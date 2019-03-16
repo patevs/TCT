@@ -77,7 +77,7 @@ function getCommitsFromRepos(repos, days, callback) {
             gitlog({
                 repo: repo,
                 all: true,
-                number: 11, //max commit count
+                number: 3, //max commit count
                 since: `${days} days ago`,
                 fields: ['abbrevHash', 'subject', 'authorDateRel', 'authorName'],
                 author: localGitUsername
