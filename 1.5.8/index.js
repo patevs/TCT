@@ -6,8 +6,9 @@
  */
 
 // IMPORTS
+
 var config = require(__dirname + '/config.js');
-var twitterbot = require(__dirname + '/twitterbot.js');
+//var twitterbot = require(__dirname + '/twitterbot.js');
 var gitbot = require(__dirname + '/gitbot.js');
 var pomodoro = require(__dirname + '/pomodoro.js');
 
@@ -94,7 +95,6 @@ screen.key(['p', 'C-p'], function(ch, key) {
     if (inPomodoroMode) {
         pomodoroObject.stop();
         inPomodoroMode = false;
-        //doTheTweets();
         doTheRQM();
         parrotBox.removeLabel('');
     } else {
@@ -118,9 +118,10 @@ var weekBox = grid.set(6, 0, 6, 7, blessed.box, makeScrollBox(' This Week '));
 //var weekBox = grid.set(6, 0, 6, 6, blessed.box, makeScrollBox(' 📝  Week '));
 var commits = grid.set(0, 6, 6, 2, contrib.bar, makeGraphBox(' Commits '));
 var parrotBox = grid.set(6, 7, 6, 5, blessed.box, makeScrollBox(''));
-var tweetBoxes = {};
-tweetBoxes[config.twitter[1]] = grid.set(2, 8, 2, 4, blessed.box, makeBox(' Twitter 1 '));
-tweetBoxes[config.twitter[2]] = grid.set(4, 8, 2, 4, blessed.box, makeBox(' Twitter 2 '));
+
+//var tweetBoxes = {};
+//tweetBoxes[config.twitter[1]] = grid.set(2, 8, 2, 4, blessed.box, makeBox(' Twitter 1 '));
+//tweetBoxes[config.twitter[2]] = grid.set(4, 8, 2, 4, blessed.box, makeBox(' Twitter 2 '));
 // ! emoji not supported on windows
 //tweetBoxes[config.twitter[1]] = grid.set(2, 8, 2, 4, blessed.box, makeBox(' 💖 '));
 //tweetBoxes[config.twitter[2]] = grid.set(4, 8, 2, 4, blessed.box, makeBox(' 💬 '));
@@ -162,8 +163,6 @@ function doTheRQM(){
     forismatic.getQuote(function (error, quote) {
         if (!error) {
             //console.log(quote);
-            //tweetBoxes[config.twitter[1]].content =
-            //tweetBoxes[config.twitter[2]].content =
             if(quote.quoteAuthor.length > 0){
                 parrotBox.content = getAnsiArt(quote.quoteText + "\n - " + quote.quoteAuthor);
             } else {
@@ -198,6 +197,7 @@ function shadeColor(color, percent) {
 }
 */
 
+/*
 function doTheTweets() {
     for (var which in config.twitter) {
         // Gigantor hack: first twitter account gets spoken by the party parrot.
@@ -226,6 +226,7 @@ function doTheTweets() {
         }
     }
 }
+*/
 
 function doTheCodes() {
     var todayCommits = 0;

@@ -3,6 +3,7 @@
  *  twitterbot.js
  */
 
+ /*
 var Twit = require('twit');
 var config = require(__dirname + '/config.js');
 var scraperjs = require('scraperjs');
@@ -54,7 +55,7 @@ function scrapeTweet(who) {
 }
 
 module.exports.getTweet = getTweet;
-
+*/
 
 // EOF
 
