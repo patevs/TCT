@@ -7,7 +7,7 @@ const resolve = require('resolve-dir');
 const subdirs = require('subdirs');
 const isGit = require('is-git');
 const gitlog = require('gitlog');
-const path = require('path');
+//const path = require('path');
 const async = require("async");
 const git = require('git-utils');
 

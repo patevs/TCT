@@ -8,7 +8,6 @@
 // IMPORTS
 
 var config = require(__dirname + '/config.js');
-//var twitterbot = require(__dirname + '/twitterbot.js');
 var gitbot = require(__dirname + '/gitbot.js');
 var pomodoro = require(__dirname + '/pomodoro.js');
 
@@ -119,12 +118,6 @@ var weekBox = grid.set(6, 0, 6, 7, blessed.box, makeScrollBox(' This Week '));
 var commits = grid.set(0, 6, 6, 2, contrib.bar, makeGraphBox(' Commits '));
 var parrotBox = grid.set(6, 7, 6, 5, blessed.box, makeScrollBox(''));
 
-//var tweetBoxes = {};
-//tweetBoxes[config.twitter[1]] = grid.set(2, 8, 2, 4, blessed.box, makeBox(' Twitter 1 '));
-//tweetBoxes[config.twitter[2]] = grid.set(4, 8, 2, 4, blessed.box, makeBox(' Twitter 2 '));
-// ! emoji not supported on windows
-//tweetBoxes[config.twitter[1]] = grid.set(2, 8, 2, 4, blessed.box, makeBox(' 💖 '));
-//tweetBoxes[config.twitter[2]] = grid.set(4, 8, 2, 4, blessed.box, makeBox(' 💬 '));
 
 tick();
 setInterval(tick, 1000 * 60 * config.updateInterval);
