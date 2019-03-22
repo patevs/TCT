@@ -1,7 +1,7 @@
 {
   "name": "tct",
   "version": "1.5.8",
-  "description": "TCT | tiny-care-terminal : A dashboard for your terminal. Forked from: https://github.com/notwaldorf/tiny-care-terminal",
+  "description": "TCT : tiny-care-terminal : A dashboard for your terminal",
   "author": "Patrick Evans (patevs)",
   "repository": {
     "type": "git",
@@ -9,9 +9,6 @@
   },
   "license": "MIT",
   "main": "index.js",
-  "bin": {
-    "term-dash": "index.js"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"

@@ -2,7 +2,7 @@
 
 /**
  *  tct
- *  1.5.8/index.js
+ *  index.js
  */
 
 // IMPORTS
