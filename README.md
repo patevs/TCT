@@ -31,7 +31,7 @@ You can exit the dashboard by pressing `esc` or `q`. The dash updates every 20 m
 
 ### 🍅 Pomodoro Mode
 
-You can press 'p' to switch parrot box to pomodoro mode.
+You can press `p` to switch parrot box to pomodoro mode.
 
 Other commands while in pomodoro mode:
 
@@ -44,11 +44,9 @@ Other commands while in pomodoro mode:
 
 To change default pomodoro and break durations set following variables in minutes (these should be numbers):
 
-```
+```sh
 TTC_POMODORO=...
 TTC_BREAK=...
 ```
 
-
 ----
-
